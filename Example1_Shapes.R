@@ -154,7 +154,7 @@ tsne <- Rtsne(X, dims = 2, perplexity = 50)$Y
 
 df <- as_tibble(cbind(X, out$embeddings, tsne))
 colnames(df) <- c("X1", "X2", "X3", "V1", "V2", "Tsne1", "Tsne2")
-df$clusters <- as.factor(labels)
+df$clusters <- as.factor(labels) # color by the ground truth clusters 
 
 # save this directly from viewer
 gg_colors <- scale_color_discrete()$palette(3) # use same colors as with ggplot
