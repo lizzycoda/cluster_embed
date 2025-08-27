@@ -14,7 +14,7 @@ All experiments in the paper are in the examples folder, with a separate file fo
 
 Each file contains code to obtain the C+E embedding and to evaluate the embedding on a variety of different metrics. 
 
-Below is an example of the C+E approach on the MNIST dataset (left) and on the developmental human brain organoid data from [Kanton et al. (2019)](https://www.nature.com/articles/s41586-019-1654-9).
+Below is an example of the C+E approach on the MNIST dataset (left) and on the developmental human brain organoid data from [Kanton et al. (2019)](https://www.nature.com/articles/s41586-019-1654-9) (right).
 
 <p align="center"><img width="800" alt="Example of the cluster + embed approach on real data" src="/figures/ce_examples.png">
 
