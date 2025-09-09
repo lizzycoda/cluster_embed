@@ -145,7 +145,7 @@ get_leiden_clustering <- function(distances, k, resolution) {
 # Geodesic distance calculation -------------------------------------------
 #--------------------------------------------------------------------------
 
-calculate_geodesic_distances <- function(euclidean_distances, k, save = TRUE, path = NULL) {
+calculate_geodesic_distances <- function(euclidean_distances, k, save = FALSE, path = NULL) {
   geodesic_distances <- vegan::isomapdist(euclidean_distances, k = k)
   if (save) {
     df <- as_tibble(as.vector(geodesic_distances))
