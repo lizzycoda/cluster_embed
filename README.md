@@ -34,37 +34,39 @@ labels <- data$labels
 euclidean_distances <- dist(X) 
 ``` 
 
-Any clustering method can then be used to cluster the data. In this example, we use DBSCAN. The embedding is obtained using the `cluster_align` function. In this example each cluster is embedded via PCA and the clusters are aligned to minimize Kruskal's formulation of the stress.
+Any clustering method can then be used to cluster the data. In this example, we use DBSCAN. The embedding is obtained using the `cluster_align` function. In this example each cluster is embedded via PCA and the clusters are aligned to minimize Kruskal's formulation of the stress. The parameter `alpha` can also (optionally) be set to increase separation between clusters in the embedding. 
 
 ```
 clusters <-  dbscan(X, eps = .1, minPts = 10)$cluster
 out<- cluster_align(euclidean_distances, clusters,
     embedding_method = "PCA",
     alignment_method = "stress",
-    use_grad = T
+    use_grad = T,
+    alpha = 1.42
   )
 ce_embedding <- out$embeddings
 ```
 
-With real world data, Euclidean distance may not capture the intrinsic dissimilarity between two observations well and other notions of dissimilarity may be more appropriate to work with. Below we calcualte the geodesic distance. It is recommended to save these distances when the dataset is large as initial distance calculation can be slow. 
+With real world data, Euclidean distance may not capture the intrinsic dissimilarity between two observations well and other notions of dissimilarity may be more appropriate to work with. Below we calculate the geodesic distance. It is recommended to save these distances when the dataset is large as initial distance calculation can be slow. 
 
 ```
 geodesic_distances <- calculate_geodesic_distances(euclidean_distances,
-  k = 5, save = TRUE,
-  path = "path_to_data"
+  k = 200, save = TRUE,
+  path = "path_to_data.csv"
 )
 
-geodesic_distances <- load_geodesic_distances("path_to_data", n = 1000)
+geodesic_distances <- load_geodesic_distances("path_to_data.csv", n = 1000)
 
 ```
 
 Then, the C+E approach can be applied to these distances. In our real-world examples we find that the Leiden algorithm performs well for clustering the data. We then embed each cluster and align the clusters. Note that when we input the geodesic distances to the `cluster_align` function and set the embedding method to PCA, this is equivalent to embedding each cluster via Isomap.
 ```
-clusters<- get_leiden_clustering(distances, k = 100, resolution = 1 / 2)
+clusters<- get_leiden_clustering(geodesic_distances, k = 100, resolution = 1 / 2)
 out<- cluster_align(geodesic_distances, clusters,
     embedding_method = "PCA",
     alignment_method = "stress",
-    use_grad = T
+    use_grad = T,
+    alpha = 1
   )
 ce_embedding <- out$embeddings
 ```
