@@ -15,7 +15,38 @@ Below is an example of the C+E approach on the MNIST dataset (left) and on the d
 <p align="center"><img width="800" alt="Example of the cluster + embed approach on real data" src="/figures/ce_examples.png">
 
 
-## Example Usage
+## Requirements
+
+The code is built in R (4.4.2) and uses the following packages:
+- ggplot2 (3.5.1)
+- readr (2.5.1)
+- dplyr (1.1.4)
+- tidyr (1.3.1)
+- Rtsne (0.17)
+- stats (4.4.2)
+- MASS (7.3.61)
+- vegan (2.6.10)
+- FreeSortR (1.3)
+- igraph (2.1.3)
+- dbscan (1.2.2)
+- proxy (0.4.27)
+- torch (0.14.2) (Only used to obtain the LOE embedding)
+
+These can be installed by running
+```
+source("install_packages.R")
+```
+
+
+The code can be cloned by running the following command
+```
+git clone https://github.com/lizzycoda/cluster_embed.git
+```
+
+
+
+## Basic Usage
+
 
 Load the source files
 
@@ -47,31 +78,9 @@ out<- cluster_align(euclidean_distances, clusters,
 ce_embedding <- out$embeddings
 ```
 
-With real world data, Euclidean distance may not capture the intrinsic dissimilarity between two observations well and other notions of dissimilarity may be more appropriate to work with. Below we calculate the geodesic distance. It is recommended to save these distances when the dataset is large as initial distance calculation can be slow. 
+For a more detailed description of the main functionality see this [tutorial](TODO). 
 
-```
-geodesic_distances <- calculate_geodesic_distances(euclidean_distances,
-  k = 200, save = TRUE,
-  path = "path_to_data.csv"
-)
-
-geodesic_distances <- load_geodesic_distances("path_to_data.csv", n = 1000)
-
-```
-
-Then, the C+E approach can be applied to these distances. In our real-world examples we find that the Leiden algorithm performs well for clustering the data. We then embed each cluster and align the clusters. Note that when we input the geodesic distances to the `cluster_align` function and set the embedding method to PCA, this is equivalent to embedding each cluster via Isomap.
-```
-clusters<- get_leiden_clustering(geodesic_distances, k = 100, resolution = 1 / 2)
-out<- cluster_align(geodesic_distances, clusters,
-    embedding_method = "PCA",
-    alignment_method = "stress",
-    use_grad = T,
-    alpha = 1
-  )
-ce_embedding <- out$embeddings
-```
-
-## Files
+## Organization
 
 All experiments in the paper and its appendix are in the examples folder, with a separate file for each dataset.
 
@@ -96,24 +105,6 @@ The repository contains the following files:
   - `human-409b2.R`
   - `fmnist.R`
   - `neurons.R`
-
-
-## Requirements
-
-The code is built in R (4.4.2) and uses the following packages:
-- ggplot2 (3.5.1)
-- readr (2.5.1)
-- dplyr (1.1.4)
-- tidyr (1.3.1)
-- Rtsne (0.17)
-- stats (4.4.2)
-- MASS (7.3.61)
-- vegan (2.6.10)
-- FreeSortR (1.3)
-- igraph (2.1.3)
-- dbscan (1.2.2)
-- proxy (0.4.27)
-- torch (0.14.2) (Only used to obtain the LOE embedding)
 
 
 ## Citation 
