@@ -111,14 +111,13 @@ The repository contains the following files:
 
 All synthetic datasets used in the paper can be loaded using `load_data(dataset = c("shapes_3d", "shapes_cylinder", "gmm_10d"), n = 1000)`. 
 
-The human brain organoid data is from [Kanton et al. (2019)](https://www.nature.com/articles/s41586-019-1654-9). We downloaded the [metadata](https://www.ebi.ac.uk/biostudies/files/E-MTAB-7552/metadata_human_cells.tsv) and [counts data]("https://www.ebi.ac.uk/biostudies/files/E-MTAB-7552/human_cell_counts_consensus.mtx"), and used the preprocessing of [Damrich et al.](https://www.biorxiv.org/content/10.1101/2024.04.26.590867v1.abstract), using [this code](https://github.com/berenslab/ne_spectrum_scRNAseq/tree/main).
+The human brain organoid data is from [Kanton et al. (2019)](https://www.nature.com/articles/s41586-019-1654-9). We downloaded the [metadata](https://www.ebi.ac.uk/biostudies/files/E-MTAB-7552/metadata_human_cells.tsv) and [counts data](https://www.ebi.ac.uk/biostudies/files/E-MTAB-7552/human_cell_counts_consensus.mtx), and used the preprocessing of [Damrich et al.](https://www.biorxiv.org/content/10.1101/2024.04.26.590867v1.abstract), using [this code](https://github.com/berenslab/ne_spectrum_scRNAseq/tree/main).
 
 The mouse cortex data is from [Tasic et al. (2018)](https://www.nature.com/articles/s41586-018-0654-5) downloaded from [here](http://celltypes.brain-map.org/api/v2/well_known_file_download/694413985). We then used the preprocessing in [Kobak & Berens, 2019](https://www.nature.com/articles/s41467-019-13056-x) with code available [here](https://github.com/berenslab/rna-seq-tsne/blob/master/tasic-et-al.ipynb). We then filtered for inhibitory neurons.
 
 The MNIST dataset was downloaded using the [torchvision API](https://docs.pytorch.org/vision/stable/generated/torchvision.datasets.MNIST.html) and the Fashion MNIST dataset was downloaded from [Kaggle](https://www.kaggle.com/datasets/zalando-research/fashionmnist).
 
 For all non-synthetic datasets we randomly subsampled 5000 examples.
-
 
 ## Citation 
 
